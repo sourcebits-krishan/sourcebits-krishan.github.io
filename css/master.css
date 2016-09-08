@@ -7016,6 +7016,9 @@ btn-ceb2:active,
   .interaction-tab
 tbody > tr > td {
     width: 15px; }
+  .customer-interaction
+tbody > tr > td {
+    min-width: 150px; }
   .type3 table thead > tr > th:nth-child(even),
   .type3 table tbody > tr:nth-child(odd) > td:nth-child(even) {
     width: 200px; }
