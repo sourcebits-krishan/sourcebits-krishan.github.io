@@ -7013,14 +7013,8 @@ btn-ceb2:active,
     margin-left: 0px; } }
 
 @media (max-width: 499px) {
-  thead > tr > th,
-  tbody > tr > th,
-  tfoot > tr > th,
-  thead > tr > td,
-  tbody > tr > td,
-  tfoot > tr > td {
-    border: none;
-    color: #FBFBFB;
+  .interaction-tab
+tbody > tr > td {
     width: 15px; }
   .type3 table thead > tr > th:nth-child(even),
   .type3 table tbody > tr:nth-child(odd) > td:nth-child(even) {

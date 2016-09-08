@@ -144,7 +144,7 @@
                   </table>
                </div>
                <div ng-if="!ques.tab">
-                  <table class="table ceb-table">
+                  <table class="table ceb-table interaction-tab">
                      <tbody>
                         <tr>
                            <td>LY </td>
@@ -331,7 +331,7 @@
                   </table>
                </div>
                <div ng-if="!ques.tab">
-                  <table class="table ceb-table">
+                  <table class="table ceb-table interaction-tab">
                      <tbody>
                         <tr>
                            <td>LY </td>
@@ -510,7 +510,7 @@
                   </table>
                </div>
                <div ng-if="!ques.tab">
-                  <table class="table ceb-table">
+                  <table class="table ceb-table interaction-tab">
                      <tbody>
                         <tr>
                            <td>LY </td>
@@ -733,7 +733,7 @@
                   <div class="start-eval hidden-xs" ng-hide="ques.answer1==null">
                      <button class="btn btn-ceb1" ng-click='exitAssessment()'>EXIT NOW</button>
                   
-                     <button class="btn btn-ceb2"  ng-click='startEvaluation()'>START EVALUATION</button>
+                     <button class="btn btn-ceb2"  ng-click="startEvaluation();ques.answer1=''">START EVALUATION</button>
                   </div>
                   <!-- Will be show only for small mobile devices -->
                   <div class="container">
@@ -769,7 +769,7 @@
               </div>
               <div class="row">
                  <div class="options-margin" ng-repeat="option in ques.test.currentQuestion.options">
-                    <div class="ceb-options" ng-class="{'active': ques.answer == option.option}" ng-click="ques.answer = option.option ; ques.answer1 = option.isCorrect ; ques.isClick()"  >
+                    <div class="ceb-options" ng-class="{'active': ques.answer == option.option}" ng-click="ques.answer = option.option ; ques.answer1 = option.isCorrect ; ques.isClick()" ng-disabled="ques.answer" >
                     
                        <span class="sr-only">Option {{$index+1}} {{option.option}}</span>
                        <span class="option-text">{{option.option}}</span>
@@ -779,7 +779,7 @@
                     </div>
                  </div>
                  <div class="col-xs-12 options-margin" ng-hide="count==20">
-                    <button class="btn btn-ceb" ng-click="ques.showNextQuestion(ques.answer,ques.answer1);ques.answer=''">NEXT</button>
+                    <button class="btn btn-ceb" ng-click="ques.showNextQuestion(ques.answer,ques.answer1);ques.answer='';option.option=''">NEXT</button>
                    
                  </div>
                  <div class="col-xs-12 options-margin" ng-show="count==20">
