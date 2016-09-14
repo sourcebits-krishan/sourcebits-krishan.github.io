@@ -7293,18 +7293,28 @@ header {
 
 /* Small Devices, Tablets */
 @media only screen and (min-width: 768px) {
+  .width-500 
+  {
+    .info-box 
+    {
+      .tablet-margin
+      {
+         margin-top: 222px !important;
+      }
+    }
+
+
+  }
+         
+        .info-box 
   .tick-img {
     margin-left: 145px;
     margin-top: 55px; }
   .exit-button {
     margin-top: 35px; }
-  .tablet-margin {
+  .tablet-margin {  
     margin-top: 222px !important;
-    background: url("../images/ceb-background.jpg") no-repeat center center fixed;
-      background-size: cover; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;}
+    }
   body {
     background: url("../images/ceb-background.jpg") no-repeat center center fixed;
     background-size: cover; 
