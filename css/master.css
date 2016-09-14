@@ -7263,16 +7263,8 @@ header {
 /*==========  Mobile First Method  ==========*/
 /* Custom, iPhone Retina */
 
-@media only screen and (min-width: 300px) {
-.tablet-margin{
-           margin-top:60px;
-            
- 
-  
-           
-        }
-  }
-@media only screen and (min-width: 320px) {
+
+@media only screen and (min-width: 318px) {
   .tick-img {
     margin-left: 40px;
     margin-top: 55px; }
