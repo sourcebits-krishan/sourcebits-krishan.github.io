@@ -7269,10 +7269,8 @@ header {
   .exit-button {
     margin-top: 35px; } 
     .tablet-margin {
-     margin:auto;
- position:absolute;
- top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
- left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
+   position: absolute;
+     top: 50%;
     }
 
   }
@@ -7285,10 +7283,8 @@ header {
     margin-top: 35px; } 
 
   .tablet-margin {
-     margin:auto;
- position:absolute;
- top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
- left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
+  position: absolute;
+     top: 50%;
     }}
 
 @media only screen and (min-width: 425px) {
@@ -7299,10 +7295,8 @@ header {
     margin-top: 35px; } 
 
   .tablet-margin {
-     margin:auto;
- position:absolute;
- top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
- left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
+   position: absolute;
+     top: 50%;
     }}
 
 /* Extra Small Devices, Phones */
@@ -7314,19 +7308,15 @@ header {
     margin-top: 35px; } 
 
   .tablet-margin {
-     margin:auto;
- position:absolute;
- top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
- left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
+    position: absolute;
+     top: 50%;
     }}
 
 /* Small Devices, Tablets */
 @media only screen and (min-width: 480px) {
     .tablet-margin {
-     margin:auto;
- position:absolute;
- top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
- left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
+position: absolute;
+     top: 50%;
     }
   }
 @media only screen and (min-width: 768px) {
@@ -7336,10 +7326,8 @@ header {
   .exit-button {
     margin-top: 35px; }
   .tablet-margin {
-     margin:auto;
- position:absolute;
- top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
- left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
+   position: absolute;
+     top: 50%;
     }
   body {
     background: url("../images/ceb-background.jpg") no-repeat center center fixed;
@@ -7354,10 +7342,8 @@ header {
   .exit-button {
     margin-top: 35px; } 
     .tablet-margin {
-     margin:auto;
- position:absolute;
- top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
- left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
+    position: absolute;
+     top: 50%;
     }
   }
 
@@ -7369,10 +7355,8 @@ header {
   .exit-button {
     margin-top: 35px; } 
   .tablet-margin {
-     margin:auto;
- position:absolute;
- top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
- left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
+     position: absolute;
+     top: 50%;
     }}
 
 /*-------------------------------------------------
