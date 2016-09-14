@@ -7268,10 +7268,13 @@ header {
     margin-top: 55px; }
   .exit-button {
     margin-top: 35px; } 
-    .tablet-margin {
-   position: absolute;
-     top: 50%;
-    }
+     .tablet-margin{
+           margin-top:175px;
+            
+ 
+  
+           
+        }
 
   }
 
@@ -7282,10 +7285,8 @@ header {
   .exit-button {
     margin-top: 35px; } 
 
-  .tablet-margin {
-  position: absolute;
-     top: 50%;
-    }}
+  
+  }
 
 @media only screen and (min-width: 425px) {
   .tick-img {
@@ -7294,29 +7295,25 @@ header {
   .exit-button {
     margin-top: 35px; } 
 
-  .tablet-margin {
-   position: absolute;
-     top: 50%;
-    }}
+  
+  }
 
 /* Extra Small Devices, Phones */
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 470px) {
   .tick-img {
     margin-left: 125px;
     margin-top: 55px; }
   .exit-button {
     margin-top: 35px; } 
 
-  .tablet-margin {
-    position: absolute;
-     top: 50%;
-    }}
+  
+
+  }
 
 /* Small Devices, Tablets */
 @media only screen and (min-width: 480px) {
     .tablet-margin {
-position: absolute;
-     top: 50%;
+
     }
   }
 @media only screen and (min-width: 768px) {
@@ -7326,8 +7323,7 @@ position: absolute;
   .exit-button {
     margin-top: 35px; }
   .tablet-margin {
-   position: absolute;
-     top: 50%;
+   margin-top:222px;
     }
   body {
     background: url("../images/ceb-background.jpg") no-repeat center center fixed;
