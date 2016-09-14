@@ -7295,18 +7295,22 @@ header {
   .exit-button {
     margin-top: 35px; }
   .tablet-margin {
-    margin-top: 222px !important; }
+    margin-top: 222px !important; 
+      background-size: cover; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;}
   body {
     background: url("../images/ceb-background.jpg") no-repeat center center fixed;
     background-size: cover; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;} }
-
 /* Medium Devices, Desktops */
 @media only screen and (min-width: 992px) {
   .tick-img {
     margin-left: 133px;
+
     margin-top: 55px; }
   .exit-button {
     margin-top: 35px; } }
