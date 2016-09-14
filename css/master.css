@@ -7269,7 +7269,10 @@ header {
   .exit-button {
     margin-top: 35px; } 
     .tablet-margin {
-    vertical-align: middle;
+     margin:auto;
+ position:absolute;
+ top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
+ left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
     }
 
   }
@@ -7282,7 +7285,10 @@ header {
     margin-top: 35px; } 
 
   .tablet-margin {
-    vertical-align: middle;
+     margin:auto;
+ position:absolute;
+ top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
+ left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
     }}
 
 @media only screen and (min-width: 425px) {
@@ -7293,7 +7299,10 @@ header {
     margin-top: 35px; } 
 
   .tablet-margin {
-    vertical-align: middle;
+     margin:auto;
+ position:absolute;
+ top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
+ left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
     }}
 
 /* Extra Small Devices, Phones */
@@ -7305,13 +7314,19 @@ header {
     margin-top: 35px; } 
 
   .tablet-margin {
-    vertical-align: middle;
+     margin:auto;
+ position:absolute;
+ top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
+ left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
     }}
 
 /* Small Devices, Tablets */
 @media only screen and (min-width: 480px) {
     .tablet-margin {
-    vertical-align: middle;
+     margin:auto;
+ position:absolute;
+ top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
+ left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
     }
   }
 @media only screen and (min-width: 768px) {
@@ -7321,7 +7336,10 @@ header {
   .exit-button {
     margin-top: 35px; }
   .tablet-margin {
-    vertical-align: middle;
+     margin:auto;
+ position:absolute;
+ top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
+ left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
     }
   body {
     background: url("../images/ceb-background.jpg") no-repeat center center fixed;
@@ -7334,7 +7352,14 @@ header {
 
     margin-top: 55px; }
   .exit-button {
-    margin-top: 35px; } }
+    margin-top: 35px; } 
+    .tablet-margin {
+     margin:auto;
+ position:absolute;
+ top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
+ left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
+    }
+  }
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width: 1200px) {
@@ -7342,7 +7367,13 @@ header {
     margin-left: 130px;
     margin-top: 55px; }
   .exit-button {
-    margin-top: 35px; } }
+    margin-top: 35px; } 
+  .tablet-margin {
+     margin:auto;
+ position:absolute;
+ top:0;bottom:0; /* Aligns Vertically - Remove for Horizontal Only */
+ left:0;right:0; /* Aligns Horizontally - Remove for Vertical Only  */
+    }}
 
 /*-------------------------------------------------
 SMACSS: LAYOUT - SECTION
