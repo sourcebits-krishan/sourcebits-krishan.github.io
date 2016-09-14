@@ -7298,7 +7298,10 @@ header {
     margin-top: 222px !important; }
   body {
     background: url("../images/ceb-background.jpg") no-repeat center center fixed;
-    background-size: cover; } }
+    background-size: cover; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;} }
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width: 992px) {
