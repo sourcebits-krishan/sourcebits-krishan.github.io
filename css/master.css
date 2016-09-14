@@ -7292,7 +7292,7 @@ header {
     margin-top: 35px; } }
 
 /* Small Devices, Tablets */
-@media only screen and (min-width: 750px) {
+@media only screen and (min-width: 530px) {
     .tablet-margin {
     margin-top: 222px !important;
     }
