@@ -7229,10 +7229,14 @@ header {
   /*Hack to set the height to the entire screen height*/
   height: 100vh; }
 
-.exit-screen {
-  height: 100vh;
-  }
-
+.exit-screen{
+    min-height: 300px;
+    position: relative;
+}
+.exit-page{
+    height: 100vh;
+    position: relative;
+}
 .exit-screen.info-box-content-wrap {
   padding: 15px 15px 15px 15px !important; }
 
@@ -7295,7 +7299,7 @@ header {
   .exit-button {
     margin-top: 35px; }
   .tablet-margin {
-    margin-top: 222px !important; 
+    margin-top: 222px; 
     background: url("../images/ceb-background.jpg") no-repeat center center fixed;
       background-size: cover; 
     -webkit-background-size: cover;
