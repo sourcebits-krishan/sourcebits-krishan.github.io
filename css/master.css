@@ -7305,11 +7305,7 @@ header {
     margin-top: 55px; }
   .exit-button {
     margin-top: 35px; } 
- .tablet-margin{
-           margin-top:175px;
-          
-           
-        }
+ 
   
 
   }
@@ -7317,7 +7313,7 @@ header {
 /* Small Devices, Tablets */
 @media only screen and (min-width: 480px) {
     .tablet-margin {
-
+        margin-top:175px;
     }
   }
 @media only screen and (min-width: 768px) {
@@ -7351,10 +7347,8 @@ header {
     margin-top: 55px; }
   .exit-button {
     margin-top: 35px; } 
-  .tablet-margin {
-     position: absolute;
-     top: 50%;
-    }}
+  
+  }
 
 /*-------------------------------------------------
 SMACSS: LAYOUT - SECTION
