@@ -7296,6 +7296,7 @@ header {
     margin-top: 35px; }
   .tablet-margin {
     margin-top: 222px !important; 
+    background: url("../images/ceb-background.jpg") no-repeat center center fixed;
       background-size: cover; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
