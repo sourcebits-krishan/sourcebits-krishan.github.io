@@ -7292,6 +7292,11 @@ header {
     margin-top: 35px; } }
 
 /* Small Devices, Tablets */
+@media only screen and (min-width: 750px) {
+    .tablet-margin {
+    margin-top: 222px !important;
+    }
+  }
 @media only screen and (min-width: 768px) {
   .tick-img {
     margin-left: 145px;
