@@ -7230,8 +7230,8 @@ header {
   height: 100vh; }
 
 .exit-screen {
-  min-height: 300px;
-  position: relative; }
+  height: 100vh;
+  }
 
 .exit-screen.info-box-content-wrap {
   padding: 15px 15px 15px 15px !important; }
