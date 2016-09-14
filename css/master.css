@@ -7268,13 +7268,7 @@ header {
     margin-top: 55px; }
   .exit-button {
     margin-top: 35px; } 
-     .tablet-margin{
-           margin-top:175px;
-            
- 
-  
-           
-        }
+    
 
   }
 
@@ -7284,7 +7278,13 @@ header {
     margin-top: 55px; }
   .exit-button {
     margin-top: 35px; } 
-
+ .tablet-margin{
+           margin-top:15px;
+            
+ 
+  
+           
+        }
   
   }
 
@@ -7305,7 +7305,11 @@ header {
     margin-top: 55px; }
   .exit-button {
     margin-top: 35px; } 
-
+ .tablet-margin{
+           margin-top:175px;
+          
+           
+        }
   
 
   }
@@ -7337,10 +7341,7 @@ header {
     margin-top: 55px; }
   .exit-button {
     margin-top: 35px; } 
-    .tablet-margin {
-    position: absolute;
-     top: 50%;
-    }
+   
   }
 
 /* Large Devices, Wide Screens */
