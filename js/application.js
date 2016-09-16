@@ -147,22 +147,22 @@ $scope.Overlay = function() {
             "SessionId": $scope.sessionId,
             "DeviceName": $scope.deviceType
         };
-        // console.log(sessionData);
+        console.log(sessionData);
 
-            // $http({
-            // method: 'POST',
-            // headers: { 'Content-type': 'application/json','charset':'utf-8'},
-            // data: {
-            // "SessionId": $scope.sessionId,
-            // "DeviceName": $scope.deviceType
-            // },
-            // url: 'http://192.168.10.213/CEBAPI/api/UserService/Create'
-            // }).success(function(res){
+            $http({
+             method: 'POST',
+            headers: { 'Content-type': 'application/json','charset':'utf-8'},
+            data: {
+            "SessionId": $scope.sessionId,
+            "DeviceName": $scope.deviceType
+            },
+            url: 'http://192.168.10.213/CEBAPI/api/UserService/Create'
+            }).success(function(res){
                 
-            // })
-            // .error(function(err){
-            //     console.log("error",err);
-            // });
+            })
+            .error(function(err){
+              console.log("error",err);
+            });
     };
 
     $scope.count = 1;
@@ -201,7 +201,7 @@ $scope.click = false;
             window.scrollTo(0, 0);
             if($scope.count>19){
                 $document.find('body').css('background','');
-                console.log("Add image on complete ");
+                //console.log("Add image on complete ");
             }
             
             // if($scope.check && $scope.count!=21 && !$scope.timercheck){
@@ -275,24 +275,24 @@ $scope.click = false;
                 "Duration": $scope.finaltime,
                 "User_SessionId": $scope.sessionId
             };
-            // $http({
-            // method: 'POST',
-            // headers: { 'Content-type': 'application/json','charset':'utf-8'},
-            // data: {
-            // "ItemType": $scope.ItemType,
-            //     "QuestionNumber": $scope.QuestionNumber,
-            //     "Answer": $scope.Answer, 
-            //     "IsRight": $scope.IsRight,
-            //     "Duration": $scope.finaltime,
-            //     "User_SessionId": $scope.sessionId
-            // },
-            // url: 'http://192.168.10.213/CEBAPI/api/AnswerService/CreateDWINFO'
-            // }).success(function(res){
-            //     console.log("success",res);
-            // })
-            // .error(function(err){
-            //     console.log("error",err);
-            // });
+            $http({
+            method: 'POST',
+            headers: { 'Content-type': 'application/json','charset':'utf-8'},
+            data: {
+            "ItemType": $scope.ItemType,
+            "QuestionNumber": $scope.QuestionNumber,
+            "Answer": $scope.Answer, 
+            "IsRight": $scope.IsRight,
+            "Duration": $scope.finaltime,
+            "User_SessionId": $scope.sessionId
+            },
+            url: 'http://192.168.10.213/CEBAPI/api/AnswerService/CreateDWINFO'
+            }).success(function(res){
+               console.log("success",res);
+            })
+            .error(function(err){
+              //console.log("error",err);
+            });
 
              
 
