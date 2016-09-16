@@ -134,7 +134,7 @@ $scope.Overlay = function() {
     $scope.startEvaluation = function() {
         // $document.find('body').css('background','none')
         $scope.check = true;
-        var timeLimit = 60 * 10;
+        var timeLimit = 6 * 1;
         startTimer(timeLimit);
         deviceType();
         $scope.sendSessionId();
