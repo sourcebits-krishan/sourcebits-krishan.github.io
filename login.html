@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ZUKO Log in</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <!-- Bootstrap 3.3.2 -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- Font Awesome Icons -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <!-- Theme style -->
+        <link href="dist/css/panelcss.css" rel="stylesheet" type="text/css" />
+        <!-- iCheck -->
+        <link href="plugins/iCheck/square/blue.css" rel="stylesheet" type="text/css" />
+        <!--Material Design-->
+        <link href="materialdesign/css/prism.css" rel="stylesheet">
+        <link href="materialdesign/bin/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            #forgotinput:focus:not([readonly]){
+                border-bottom: 1px solid black !important;
+                box-shadow: 0 1px 0 0 black;
+            }
+            #forgotinput:focus:not([readonly]) + label{
+               color: black !important;
+            }
+        </style>
+    </head>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.js"></script>
+      <script src="js/LoginController.js"></script>
+    <body class="login-page">
+    <div  ng-app="myApp" ng-controller="loginCtrl as log">
+        <div class="login-box" style="margin-top: 4%;">
+            <div class="login-logo" style="color: white">
+                <h1 style="font-size: 84px;color: white !important">ZUKO</h1>
+                <h6 style="margin-top: -16px;color: white">Admin Panel</h6>
+            </div><!-- /.login-logo -->
+            <div class="login-box-body" id="login" style="">
+
+                
+                    <div class="row">
+                    <div class="input-field col s12">
+                        <input id="last_name" name="username"  ng-minlength="5" ng-model="username" type="text" required>
+                        <label for="last_name">Username</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="last_name" name="password"   ng-model="password" type="password" required="">
+                        <label for="last_name">Password</label>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-7">    
+                            <div class="checkbox icheck">
+                                <label style="color: white">
+                                    <input type="checkbox"> Remember Me
+                                </label>
+                            </div>                        
+                        </div><!-- /.col -->
+                        <div class="col-xs-5">
+                            <div class="checkbox icheck" style="float: right">
+                                <a onclick="showforgot();" style="color: white">Forgot Password</a>
+                            </div>
+
+                        </div><!-- /.col -->
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn waves-effect waves-light col s12" ng-click='Login(username,password)' style="background-color: rgba(76, 210, 255, 1); color:  rgba(37, 49, 58, 1)">SIGN IN</button><!-- /.col -->
+                        </div>
+                    </div>
+                
+
+
+
+            </div><!-- /.login-box-body -->
+            <div class="login-box-body" id="forgot" style=" display: none;">
+                <div class="row">
+                   
+                    <div class="col-sm-11">
+                        <h4>FORGOT PASSWORD</h4>
+                        <p>Enter your email address below we'll<br> send you password reset instructions.</p>
+                    </div>
+                    <div class="col-sm-1">
+                        <img src="dist/img/Delete-50.png" style="float: right; height: 25px; width: 25px;" onclick="closebox();" >
+                    </div>
+
+                </div>
+                <form action="" method="post">
+<div class="row">
+                    <div class="input-field col s12 forgot" id="cssforgot">
+
+                        <input id="forgotinput" type="email" required="" style="">
+                        <label for="last_name">Email Address</label>
+                    </div>
+</div>
+
+
+                    <div class="row">
+
+                        <div class="col-xs-12">
+                            <button onclick="showsuccess();" type="submit"  class="btn waves-effect waves-light col s12" style="background-color: rgba(76, 210, 255, 1); color:  rgba(37, 49, 58, 1)">SUBMIT</button>
+                        </div><!-- /.col -->
+                    </div>
+                </form>
+
+
+
+            </div>
+            <div class="login-box-body" id="success" style=" display: none;">
+                <div class="row">
+                    <div class="col-sm-11">
+                        <h4>FORGOT PASSWORD</h4>
+                        <p>Enter your email address below we'l<br> send you password reset instructions.</p>
+                    </div>
+                    <div class="col-sm-1">
+                        <img src="dist/img/Delete-50.png" style="float: right; height: 25px; width: 25px;" onclick="closebox();">
+                    </div>
+
+                </div>
+                <form action="#" method="post">
+                    <div class="row">
+                    <div class="input-field col s12">
+                        <input id="last_name" type="email" disabled="">
+                        <label for="last_name">Email Address</label>
+                    </div>
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-xs-12">
+                            <button type="submit" class="btn waves-effect waves-light col s12" disabled="">WE HAVE SENT YOU AN EMAIL</button>
+                        </div><!-- /.col -->
+                    </div>
+                </form>
+
+
+
+            </div>
+
+        </div><!-- /.login-box -->
+        <footer class="footer center-align" style="background-color: #35434C; margin: 0% auto; margin-top: -2%  ; margin-left: 0%;">
+            <strong><a href="#" style="color: white">&#169; 2016 - ZOUK APPLICATION</a>.</strong>
+        </footer>
+        <!-- jQuery 2.1.3 -->
+        <!--<script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>-->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>if (!window.jQuery) {
+                                document.write('<script src="bin/jquery-2.1.1.min.js"><\/script>');
+                            }
+        </script>
+        <script src="materialdesign/js/jquery.timeago.min.js"></script>
+        <script src="materialdesign/js/prism.js"></script>
+        <script src="materialdesign/jade/lunr.min.js"></script>
+        <script src="materialdesign/jade/search.js"></script>
+        <script src="materialdesign/bin/materialize.js"></script>
+        <script src="materialdesign/js/init.js"></script>
+        <!-- Bootstrap 3.3.2 JS -->
+        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <!-- iCheck -->
+        <script src="plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+        <script>
+                            $(function () {
+                                $('input').iCheck({
+                                    checkboxClass: 'icheckbox_square-blue',
+                                    radioClass: 'iradio_square-blue',
+                                    increaseArea: '20%' // optional
+                                });
+                            });
+        </script>
+        <script>
+            function showforgot() {
+                $(".login-box-body, .register-box-body").css('background', '#fff');
+                $("#login").css("display", "none");
+                $("#forgot").css("display", "block");
+                $("#success").css("display", "none");
+            }
+            function closebox() {
+                $(".login-box-body, .register-box-body").css('background', '');
+                $("#forgot").css("display", "none");
+                $("#success").css("display", "none");
+                $("#login").css("display", "block");
+
+
+            }
+            function showsuccess() {
+                $(".login-box-body, .register-box-body").css('background', '#fff');
+                $("#forgot").css("display", "none");
+                $("#login").css("display", "none");
+                $("#success").css("display", "block");
+
+            }
+        </script>
+        </div>
+    </body>
+</html>
