@@ -84,8 +84,15 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.js"></script>
       <script src="js/MainController.js"></script>
+
+      <script language="javascript">
+                   function myFunction(a) {
+                            return a - 2016;                // Function returns the product of a and b
+}
+</script>
+<script src="js/dirPagination.js"></script>
     <body class="skin-blue">
-<div  ng-app="myApp" ng-controller="mainCtrl as main">
+<div  ng-app="myApp" ng-controller="mainCtrl">
 
 
         <div class="row">
@@ -184,7 +191,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <div class="icon-addon addon-lg">
-                                                    <input type="text" placeholder="Search Users" class="form-control" id="search">
+                                                    <input type="text" placeholder="Search Users" class="form-control ng-valid ng-dirty"  ng-model="searchName"> 
                                                     <label for="search" class="glyphicon glyphicon-search" title="serach"></label>
                                                 </div>
                                             </div>
@@ -218,9 +225,9 @@
                                             <div class="form-group">
                                                 <label for="date">EVENTS HOSTED</label>
                                                 <select class="form-control" id="date">
-                                                    <option>1 or more</option>
-                                                    <option>5 or more</option>
-                                                    <option>10 or more</option>
+                                                    <option ng-modal="eventcheck">1 or more</option>
+                                                    <option ng-modal="eventcheck">5 or more</option>
+                                                    <option ng-modal="eventcheck">10 or more</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -237,7 +244,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="date">&nbsp;</label>
-                                                <input type="submit" class="form-control btn btn-primary" value="APPLY FILTER">
+                                                <input type="submit" class="form-control btn btn-primary" ng-modal="eventcheck" value="APPLY FILTER">
                                             </div>
                                         </div>
                                     </div>
@@ -252,52 +259,103 @@
 
                                                         </div><!-- /.box-header -->
                                                         <div class="box-body">
-                                                            <table class="table table-striped text-center table" style="color: black">
+                                                            <table class="table table-striped text-center table" style="color: black" >
                                                                 <thead style="background-color: #001a35; color: white;">
                                                                     <tr>
-                                                                        <th>USER NAME</th>
-                                                                        <th>AGE</th>
-                                                                        <th>GENDER</th>
-                                                                        <th>EVENTS HOSTED</th>
+                                                                        <th style="width:300px;text-align:left;padding-left:40px;">USER NAME</th>
+                                                                        <th style="width:100px;text-align:center">AGE</th>
+                                                                        <th style="width:100px;text-align:center">GENDER</th>
+                                                                        <th style="width:200px;text-align:center">EVENTS HOSTED</th>
                                                                         <th>LAST LOGIN</th>
                                                                         <th>ACTION</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr>
-                                                                        <td data-toggle="collapse" data-target="#user1" class="accordion-toggle">
-                                                                            <img class='img-circle' width='40' height='40' style='border: 1px solid black;' src='dist/img/user2-160x160.jpg'>
-                                                                            Name1
-                                                                        </td>
-                                                                        <td>
-                                                                            23 <span style='color: #C7CBD4'> years old</span>
-                                                                        </td>
-                                                                        <td>
-                                                                            Male
-                                                                        </td>
-                                                                        <td>
-                                                                            2 <span style='color: #C7CBD4'> events</span>
-                                                                        </td>
-                                                                        <td>
-                                                                            June 10,2016
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="" class="form-control btn btn-danger">DELETE USER</a>
-                                                                        </td>
 
-                                                                    </tr>
-                                                                    <tr class="hiddenCol accordian-body collapse" id="user1">
-                                                                        <td colspan="7" >
-                                                                            <!--GUNJAN-->
-                                                                            <table cellpadding="7" cellspacing="0" border="0" style="padding-left:50px;background-color:#E9EAEC;" class="">
+                                                                             <tr  ng-repeat-start="x in userlist1"  ng-click="selUser(x)" >
+                                                                                
+                                                                                 
+                                                                                 <td ng-hide="isSelected(x)" style="text-align:left;padding-left:40px" ng-click="updateUser(userlist1[$index].userName,userlist1[$index].userId);" >{{userlist1[$index].userName}}
+
+    
+                                                                                      </td>
+   
+                                                                                 <td ng-hide="isSelected(x)" > {{userlist1[$index].userAge.substring(0,4)-2016}}<span style='color: #C7CBD4'> years old</span></td>
+                                                                                 
+                                                                                 <td style="width:100px;text-align:center" ng-hide="isSelected(x)">{{userlist1[$index].gender}}</td>
+                                                                                  <td ng-hide="isSelected(x)" >{{userlist1[$index].hosted}}<span style='color: #C7CBD4'> events</span></td>
+                                                                                   
+                                                                                   <td ng-hide="isSelected(x)">{{userlist1[$index].lastLogin.substring(0,10) | date : "MMMM d, y" }}</td>
+                                                                                    <td ng-hide="isSelected(x)" style="width:30px">
+                                                                                     <a type="submit" class="form-control btn btn-danger" ng-click="userDelete(userlist1[$index].userId);">DELETE USER</a>
+                                                                                    </td>
+                                                                                       
+
+                                                                                         </tr>
+                                                                                         <tr ng-repeat-end ng-if="isSelected(x)">
+                                                                                            <td colspan="9" >
+                                                                            <!---->
+                                                                            <table cellpadding="9" cellspacing="0" border="0" style="padding-left:50px;background-color:#E9EAEC;" class="">
                                                                                 <tr>
-                                                                                    <td><div class="row" style="background-color: #E4E8EB;"><div class="col-sm-3" style="height:200px; margin-top:auto; padding-left:80px;"><h5 style="text-align:left"><b>USER PHOTO</b></h5><div class="photo"><a href=""><span class="zoom"></span><span class="reseticon"></span><img src="dist/img/user2-160x160.jpg" class="img" style="width:100%; height:100%;"></a></div></div><div class="col-sm-3"><h5 style="text-align:left"><b>USER DETAILS</b></h5><div class="form-inline" style="float:right; padding-bottom: 10px;"><label for="date" style="float:left">FIRST NAME</label><input type="text" class="form-control" id="date" value="NAme"></div><div class="form-inline" style="float:right; padding-bottom: 10px;"><label for="date" style="float:left">LAST NAME</label><input type="text" class="form-control" id="date" value="Last Name"></div><div class="form-inline" style="float:right; padding-bottom: 10px;"><label for="date" style="float:left">AGE</label><input type="text" disabled="" class="form-control" id="date" value="23"></div><div class="form-inline" style="float:right; padding-bottom: 10px;"><label for="date" style="float:left">GENDER</label><input type="text" disabled="" class="form-control" id="date" value="Male"></div><div class="form-inline" style="float:right"><label for="date" style="float:left; padding-bottom: 10px;">PHONE</label><input type="text" disabled="" class="form-control" id="date" value="(+91) 1234567891"></div></div><div class="col-sm-4"><div class="form-group"><label for="date" style="float:left">ADDITIONAL INFORMATION</label><div class="col-sm-12" style="height:200px;"><div class="col-sm-6" style="float:left;text-align: left; padding-bottom: 10px;">LAST LOGGED IN</div><div class="col-sm-6" style="float:right;text-align: right; padding-bottom: 10px;">June 10,2016</div><div class="col-sm-6" style="float:left;text-align: left; padding-bottom: 10px;">EVENT HOSTED</div><div class="col-sm-6" style="float:right;text-align: right; padding-bottom: 10px;">7 events</div><div class="col-sm-6" style="float:left;text-align: left; padding-bottom: 10px;">REPORTS SENT</div><div class="col-sm-6" style="float:right;text-align: right; padding-bottom: 10px;">10 reports</div><div class="col-sm-9" style="float:left;text-align: left; padding-bottom: 10px;">REPORTS RECEIVED</div><div class="col-sm-3" style="float:right;text-align: right; padding-bottom: 10px;"><a>2 report</a></div></div></div></div></div></td>
+                                                                                    <td><form method="post" action="" name="form">
+                                                                                    <div class="row" style="background-color: #E4E8EB;">
+                                                                                      <div class="col-sm-3" style="height:200px; margin-top:auto; padding-left:80px;">
+                                                                                          <h5 style="text-align:left"><b>USER PHOTO</b></h5>
+                                                                                             <div class="photo"><a href=""><span class="zoom"></span><span class="reseticon"></span>
+                                                                                                <img src="{{profImg}}" class="img" style="width:100%; height:100%;"></a>
+                                                                                             </div>
+                                                                                      </div>
+                                                                                        <div class="col-sm-3">
+                                                                                             <h5 style="text-align:left"><b>USER DETAILS</b></h5>
+                                                                                                  <div class="form-inline" style="float:right; padding-bottom: 10px;">
+                                                                                                      <label for="date" style="float:left;padding:7px 5px 0 0 " >NAME</label>
+                                                                                                          <input type="text" class="form-control"  
+                                                                                                                  
+                                                                                                                  id="favorite"
+                                                                                                                  name="{{userlist1[$index].userName}}" 
+                                                                                                                  placeholder="{{userlist1[$index].userName}}"
+                                                                                                                  ng-model="form.firstname" 
+                                                                                                           value="{{userlist1[$index].userName}}">
+                                                                                                   </div>
+                                                                                                   <div class="form-inline" style="float:right; padding-bottom: 10px;">
+                                                                                                       
+                                                                                                   </div>
+                                                                                                   <div class="form-inline" style="float:right; padding-bottom: 10px;">
+                                                                                                       <label for="date" style="float:left;padding:7px 5px 0 0 ">AGE</label>
+                                                                                                         <input type="text" disabled="" class="form-control" id="date" value="{{userlist1[$index].userAge.substring(0,4)-2016}}">
+                                                                                                    </div>
+                                                                                                    <div class="form-inline" style="float:right; padding-bottom: 10px;">
+                                                                                                         <label for="date" style="float:left;padding:7px 5px 0 0 ">GENDER</label>
+                                                                                                             <input type="text" disabled="" class="form-control" id="date" value="{{userlist1[$index].gender}}">
+                                                                                                    </div>
+                                                                                                    <div class="form-inline" style="float:right">
+                                                                                                       <label for="date" style="float:left; padding:7px 5px 0 0 ">PHONE</label>
+                                                                                                          <input type="text" disabled="" class="form-control" id="date" value="{{mobile}}">
+                                                                                                     </div></div>
+                                                                                                     <div class="col-sm-4">
+                                                                                                        <div class="form-group">
+                                                                                                            <label for="date" style="float:left;padding-top:8px;">ADDITIONAL INFORMATION</label>
+                                                                                                               <div class="col-sm-12" style="height:200px;">
+                                                                                                                  <div class="col-sm-6" style="float:left;text-align: left; padding-bottom: 10px;">LAST LOGGED IN</div>
+                                                                                                                     <div class="col-sm-6" style="float:right;text-align: right; padding-bottom: 10px;">{{userlist1[$index].lastLogin.substring(0,10) | date : "MMMM d, y" }}</div>
+                                                                                                                        <div class="col-sm-6" style="float:left;text-align: left; padding-bottom: 10px;">EVENT HOSTED</div>
+                                                                                                                        <div class="col-sm-6" style="float:right;text-align: right; padding-bottom: 10px;">{{userlist1[$index].hosted}} events</div>
+                                                                                                                        <div class="col-sm-6" style="float:left;text-align: left; padding-bottom: 10px;">REPORTS SENT</div>
+                                                                                                                        <div class="col-sm-6" style="float:right;text-align: right; padding-bottom: 10px;">10 reports</div>
+                                                                                                                        <div class="col-sm-9" style="float:left;text-align: left; padding-bottom: 10px;">REPORTS RECEIVED</div>
+                                                                                                                        <div class="col-sm-3" style="float:right;text-align: right; padding-bottom: 10px;"><a>2 report</a>
+                                                                                                                         </div>
+                                                                                                               </div>
+                                                                                                          </div>
+                                                                                                    </div>
+                                                                                              </div>
+                                                                                        </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td>
                                                                                         <div class="row" style="padding-top:22px;padding-bottom: 22px; background-color:#DDE1E4">
                                                                                             <div class="col-sm-3">
-                                                                                                <a href="#" class="form-control btn btn-danger">
+                                                                                                <a href="#" class="form-control btn btn-danger" ng-click="userDelete(userlist1[$index].userId);reload();">
                                                                                                     Delete User
                                                                                                 </a>
                                                                                             </div>
@@ -309,10 +367,10 @@
                                                                                             </div>
                                                                                             <div class="col-sm-4">
                                                                                                 <div class="col-sm-6">
-                                                                                                    <a href="#" class="form-control btn btn-default" style="margin-right: 10px;">DISMISS CHANGES</a>
+                                                                                                    <a href="#" class="form-control btn btn-default" style="margin-right: 10px;" ng-click="reload();">DISMISS CHANGES</a>
                                                                                                 </div>
                                                                                                 <div class="col-sm-6">
-                                                                                                    <a href="#" class="form-control btn btn-primary">SAVE CHANGES</a>
+                                                                                                    <a href="#" class="form-control btn btn-primary" ng-click="updateUserDetails(form.firstname,userlist1[$index].userId)" >SAVE CHANGES</a>
                                                                                                 </div>
                                                                                                     
                                                                                                 
@@ -320,14 +378,18 @@
                                                                                             </div>
                                                                                             
                                                                                                 
-                                                                                        </div>
+                                                                                        </div></form>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
 
-                                                                        </td>
-                                                                    </tr>
+                                                                                        </tr>
+
+                                                                               
+
+                                                                                         
                                                                 </tbody>
+
 
 
                                                             </table>
@@ -439,7 +501,7 @@
                                                                         <th>EVENT NAME</th>
                                                                         <th>HOST</th>
                                                                         <th>STATUS</th>
-                                                                        <td>GUEST</td>
+                                                                        <th>GUEST</th>
                                                                         <th>START DATE</th>
                                                                         <th>END DATE</th>
 
@@ -447,83 +509,72 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr>
-                                                                        <td data-toggle="collapse" data-target="#demo1" class="accordion-toggle">MUSIC DANCE</td>
-                                                                        <td><a href="#"><img src="dist/img/user2-160x160.jpg" class="img-circle" width="40" height="40" style="border: 1px solid black;"> ANNI</a></td>
-                                                                        <td><a href="#">ACTIVE</a></td>
-                                                                        <td> 20</td>
-                                                                        <td>Dec 23,2016</td>
-                                                                        <td>Dec 30,2016</td>
-                                                                        <td><a href="#" class="form-control btn btn-danger">DELETE EVENT</a></td>
+                                                                    <tr  ng-repeat-start="x in eventlist"  ng-click="selUser(x);reports(eventlist[$index].eventReports.length,eventlist[$index].galleryPhotoReports.length)">
+                                                                        <td ng-hide="isSelected(x)">{{eventlist[$index].eventName}}</td> 
+                                                    <td><a href="#"><img src="{{eventlist[$index].hostUserList[0].thumbnailUrl}}" class="img-circle" width="40" height="40" style="border: 1px solid black;"> {{eventlist[$index].hostUserList[0].userName}}</a></td>  
+
+                                                                        <td  ng-show="{{eventlist[$index].hostUserList[0].status}}=='1'"><a href="#">ACTIVE</a></td>
+                                                                        <td  ng-show="{{eventlist[$index].hostUserList[0].status}}=='2'"><a href="#">DELETED</a></td>  
+                                                                        <td ng-hide="isSelected(x)">{{eventlist[$index].guestsCheckedInCount}}</td>
+                                                                        <td ng-hide="isSelected(x)" >{{eventlist[$index].eventStartTime.substring(0,10) | date : "MMMM d, y" }}</td> 
+                                                                        <td ng-hide="isSelected(x)">{{eventlist[$index].eventEndTime.substring(0,10) | date : "MMMM d, y" }}</td>
+                                                                        <td ng-hide="isSelected(x)"><a href="#" class="form-control btn btn-danger" ng-click="deleteEvent(eventlist[$index].hostUserList[0].userId,eventlist[$index].eventId)">DELETE EVENT</a></td>
                                                                     </tr>
-                                                                    <tr class="hiddenCol accordian-body collapse" id="demo1">
-                                                                        <td colspan="7" >
+                                                                    <tr  ng-repeat-end ng-if="isSelected(x)">
+                                                                        <td colspan="7" ><form method="post" action="" name="form1">
                                                                             <div class="row">
                                                                                 <div class="col-sm-4">
                                                                                     <h5>EVENT</h5>
-                                                                                    <img src="dist/img/boxed-bg.png" width="350" height="200">
+                                                                                    <img src="{{eventlist[$index].eventImgUrl}}" width="350" height="200">
                                                                                     <div class="form-group">
                                                                                         <div class="form-group" >
                                                                                             <label for="date">NAME</label>
-                                                                                            <input type="text" class="form-control" value="Name">
+                                                                                            <input type="text" class="form-control" value="{{eventlist[$index].eventName}}" placeholder="{{eventlist[$index].eventName}}"
+                                                                                                                  ng-model="form1.eventN" >
                                                                                         </div>
                                                                                         <div class="form-group" >
                                                                                             <label for="date">STATUS</label>
                                                                                             <select class="form-control">
-                                                                                                <option>ACTIVE</option>
+                                                                                                <option ng-show="{{eventlist[$index].hostUserList[0].status}}=='1'">ACTIVE</option>
+                                                                                                 <option ng-show="{{eventlist[$index].hostUserList[0].status}}=='2'">DELETED</option>
                                                                                             </select>
                                                                                         </div>
                                                                                         <div class="form-group" >
                                                                                             <label for="date">LOCATION</label>
-                                                                                            <input type="text" class="form-control" value="LOCATION NAME">
+                                                                                            <input type="text" class="form-control" value="{{eventlist[$index].location.eventLocnCity}},{{eventlist[$index].location.eventLocnState}}">
                                                                                         </div>
                                                                                         <div class="form-group" >
                                                                                             <label for="date">COST</label>
-                                                                                            <input type="text" class="form-control" value="BEAR BELLY">
+                                                                                            <input type="text" class="form-control" value="{{eventlist[$index].eventCost}}" placeholder="{{eventlist[$index].eventCost}}"
+                                                                                                                  ng-model="form1.eventC">
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-sm-4">
                                                                                     <div class="row">
-                                                                                        <h5>7 EVENT PHOTOS</h5>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
+                                                                                        <h5>{{eventlist[$index].galleryPhotos.length}} EVENT PHOTOS</h5>
+                                                                                        <div class="col-sm-3" style="padding-top: 5px"> 
+                                                                                            <img src="{{eventlist[$index].galleryPhotos}}" class="img img-responsive">
                                                                                         </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
+                                                                                        
                                                                                     </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>6 REPORTERS RECEIVED</b></h5>
+                                                                                    <div class="row" >
+                                                                                        <h5><b>{{reportcount}} REPORTS RECEIVED</b></h5>
                                                                                         <div class="col-sm-12">
                                                                                             <span class="col-sm-6">EVENT REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>4 Reports</a></span>
+                                                                                            <span class="col-sm-6"><a> {{eventlist[$index].eventReports.length}}  Reports</a></span>  
                                                                                         </div>
                                                                                         <div class="col-sm-12">
                                                                                             <span class="col-sm-6">PHOTO REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>2 Reports</a></span>
+                                                                                            
+                                                                                            <span  class="col-sm-6"><a>{{eventlist[$index].galleryPhotoReports.length}} Reports</a></span>
                                                                                         </div>
 
                                                                                     </div>
                                                                                     <div class="row">
-                                                                                        <h5><b>DESCRIPTION</b></h5>
+                                                                                        <h5><b>DESCRIPTION</b></h5>  
                                                                                         <div class="col-sm-12" style="padding: 30px 30px 30px 30px; background-color: #fff">
-                                                                                            JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI 
+                                                                                           {{eventlist[$index].eventDetails}} 
                                                                                         </div>
 
 
@@ -533,7 +584,7 @@
                                                                                 <div class="col-sm-4" style="padding-left: 50px;">
                                                                                     <h5><b>EVENT HOST</b></h5>
                                                                                     <div class="row">
-                                                                                        <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   John
+                                                                                        <img src="{{eventlist[$index].hostUserList[0].thumbnailUrl}}" class="img img-circle" width="50" height="50">   {{eventlist[$index].hostUserList[0].userName}}
                                                                                     </div>
                                                                                     <h5><b>GUEST</b></h5>
                                                                                     <div class="row">
@@ -556,874 +607,24 @@
                                                                             <div class="row">
                                                                                 <div class="col-sm-2" style="float: left">
 
-                                                                                    <a  href="#" class="form-control btn btn-danger">DELETE EVENT</a>
+                                                                                    <a  href="#" class="form-control btn btn-danger" ng-click="deleteEvent(eventlist[$index].hostUserList[0].userId,eventlist[$index].eventId);reload();">DELETE EVENT</a>
                                                                                 </div>
                                                                                 <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-primary">SAVE CHANGES</a>
+                                                                                    <a style="float: left" href="#" class="form-control btn btn-primary" 
+                                                                                    ng-click="updateEvent(eventlist[$index].eventName,form1.eventC,eventlist[$index].eventId,eventlist[$index].location.eventLocnStreet,
+                                                                                    eventlist[$index].location.eventLocnCity,eventlist[$index].location.eventLocnState,eventlist[$index].location.eventLocnZip,
+                                                                                    eventlist[$index].location.cordinates[0],eventlist[$index].location.cordinates[1]);">SAVE CHANGES</a>
                                                                                 </div>
                                                                                 <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-default">DISMISS CHANGES</a>
+                                                                                    <a style="float: left" href="#" class="form-control btn btn-default" ng-click="reload();">DISMISS CHANGES</a>
 
                                                                                 </div>
 
-                                                                            </div>
+                                                                            </div></form>
                                                                         </td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td data-toggle="collapse" data-target="#demo2" class="accordion-toggle">MUSIC DANCE</td>
-                                                                        <td><a href="#"><img src="dist/img/user2-160x160.jpg" class="img-circle" width="40" height="40" style="border: 1px solid black;"> ANNI</a></td>
-                                                                        <td><a href="#">ACTIVE</a></td>
-                                                                        <td> 20</td>
-                                                                        <td>Dec 23,2016</td>
-                                                                        <td>Dec 30,2016</td>
-                                                                        <td><a href="#" class="form-control btn btn-danger">DELETE EVENT</a></td>
-                                                                    </tr>
-                                                                    <tr class="hiddenCol accordian-body collapse" id="demo2">
-                                                                        <td colspan="7" >
-                                                                            <div class="row">
-                                                                                <div class="col-sm-4">
-                                                                                    <h5>EVENT</h5>
-                                                                                    <img src="dist/img/boxed-bg.png" width="350" height="200">
-                                                                                    <div class="form-group">
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">NAME</label>
-                                                                                            <input type="text" class="form-control" value="Name">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">STATUS</label>
-                                                                                            <select class="form-control">
-                                                                                                <option>ACTIVE</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">LOCATION</label>
-                                                                                            <input type="text" class="form-control" value="LOCATION NAME">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">COST</label>
-                                                                                            <input type="text" class="form-control" value="BEAR BELLY">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-sm-4">
-                                                                                    <div class="row">
-                                                                                        <h5>7 EVENT PHOTOS</h5>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>6 REPORTERS RECEIVED</b></h5>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">EVENT REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>4 Reports</a></span>
-                                                                                        </div>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">PHOTO REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>2 Reports</a></span>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>DESCRIPTION</b></h5>
-                                                                                        <div class="col-sm-12" style="padding: 30px 30px 30px 30px; background-color: #fff">
-                                                                                            JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI 
-                                                                                        </div>
-
-
-                                                                                    </div>
-
-                                                                                </div>
-                                                                                <div class="col-sm-4" style="padding-left: 50px;">
-                                                                                    <h5><b>EVENT HOST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   John
-                                                                                    </div>
-                                                                                    <h5><b>GUEST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   OBAMA
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   PUTIN
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   MODI
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   <a>See 10 more</a>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="row">
-                                                                                <div class="col-sm-2" style="float: left">
-
-                                                                                    <a  href="#" class="form-control btn btn-danger">DELETE EVENT</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-primary">SAVE CHANGES</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-default">DISMISS CHANGES</a>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td data-toggle="collapse" data-target="#demo3" class="accordion-toggle">MUSIC DANCE</td>
-                                                                        <td><a href="#"><img src="dist/img/user2-160x160.jpg" class="img-circle" width="40" height="40" style="border: 1px solid black;"> ANNI</a></td>
-                                                                        <td><a href="#">ACTIVE</a></td>
-                                                                        <td> 20</td>
-                                                                        <td>Dec 23,2016</td>
-                                                                        <td>Dec 30,2016</td>
-                                                                        <td><a href="#" class="form-control btn btn-danger">DELETE EVENT</a></td>
-                                                                    </tr>
-                                                                    <tr class="hiddenCol accordian-body collapse" id="demo3">
-                                                                        <td colspan="7" >
-                                                                            <div class="row">
-                                                                                <div class="col-sm-4">
-                                                                                    <h5>EVENT</h5>
-                                                                                    <img src="dist/img/boxed-bg.png" width="350" height="200">
-                                                                                    <div class="form-group">
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">NAME</label>
-                                                                                            <input type="text" class="form-control" value="Name">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">STATUS</label>
-                                                                                            <select class="form-control">
-                                                                                                <option>ACTIVE</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">LOCATION</label>
-                                                                                            <input type="text" class="form-control" value="LOCATION NAME">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">COST</label>
-                                                                                            <input type="text" class="form-control" value="BEAR BELLY">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-sm-4">
-                                                                                    <div class="row">
-                                                                                        <h5>7 EVENT PHOTOS</h5>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>6 REPORTERS RECEIVED</b></h5>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">EVENT REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>4 Reports</a></span>
-                                                                                        </div>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">PHOTO REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>2 Reports</a></span>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>DESCRIPTION</b></h5>
-                                                                                        <div class="col-sm-12" style="padding: 30px 30px 30px 30px; background-color: #fff">
-                                                                                            JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI 
-                                                                                        </div>
-
-
-                                                                                    </div>
-
-                                                                                </div>
-                                                                                <div class="col-sm-4" style="padding-left: 50px;">
-                                                                                    <h5><b>EVENT HOST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   John
-                                                                                    </div>
-                                                                                    <h5><b>GUEST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   OBAMA
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   PUTIN
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   MODI
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   <a>See 10 more</a>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="col-sm-2" style="float: left">
-
-                                                                                    <a  href="#" class="form-control btn btn-danger">DELETE EVENT</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-primary">SAVE CHANGES</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-default">DISMISS CHANGES</a>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td data-toggle="collapse" data-target="#demo4" class="accordion-toggle">MUSIC DANCE</td>
-                                                                        <td><a href="#"><img src="dist/img/user2-160x160.jpg" class="img-circle" width="40" height="40" style="border: 1px solid black;"> ANNI</a></td>
-                                                                        <td><a href="#">ACTIVE</a></td>
-                                                                        <td> 20</td>
-                                                                        <td>Dec 23,2016</td>
-                                                                        <td>Dec 30,2016</td>
-                                                                        <td><a href="#" class="form-control btn btn-danger">DELETE EVENT</a></td>
-                                                                    </tr>
-                                                                    <tr class="hiddenCol accordian-body collapse" id="demo4">
-                                                                        <td colspan="7" >
-                                                                            <div class="row">
-                                                                                <div class="col-sm-4">
-                                                                                    <h5>EVENT</h5>
-                                                                                    <img src="dist/img/boxed-bg.png" width="350" height="200">
-                                                                                    <div class="form-group">
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">NAME</label>
-                                                                                            <input type="text" class="form-control" value="Name">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">STATUS</label>
-                                                                                            <select class="form-control">
-                                                                                                <option>ACTIVE</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">LOCATION</label>
-                                                                                            <input type="text" class="form-control" value="LOCATION NAME">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">COST</label>
-                                                                                            <input type="text" class="form-control" value="BEAR BELLY">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-sm-4">
-                                                                                    <div class="row">
-                                                                                        <h5>7 EVENT PHOTOS</h5>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>6 REPORTERS RECEIVED</b></h5>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">EVENT REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>4 Reports</a></span>
-                                                                                        </div>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">PHOTO REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>2 Reports</a></span>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>DESCRIPTION</b></h5>
-                                                                                        <div class="col-sm-12" style="padding: 30px 30px 30px 30px; background-color: #fff">
-                                                                                            JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI 
-                                                                                        </div>
-
-
-                                                                                    </div>
-
-                                                                                </div>
-                                                                                <div class="col-sm-4" style="padding-left: 50px;">
-                                                                                    <h5><b>EVENT HOST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   John
-                                                                                    </div>
-                                                                                    <h5><b>GUEST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   OBAMA
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   PUTIN
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   MODI
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   <a>See 10 more</a>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="col-sm-2" style="float: left">
-
-                                                                                    <a  href="#" class="form-control btn btn-danger">DELETE EVENT</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-primary">SAVE CHANGES</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-default">DISMISS CHANGES</a>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td data-toggle="collapse" data-target="#demo5" class="accordion-toggle">MUSIC DANCE</td>
-                                                                        <td><a href="#"><img src="dist/img/user2-160x160.jpg" class="img-circle" width="40" height="40" style="border: 1px solid black;"> ANNI</a></td>
-                                                                        <td><a href="#">ACTIVE</a></td>
-                                                                        <td> 20</td>
-                                                                        <td>Dec 23,2016</td>
-                                                                        <td>Dec 30,2016</td>
-                                                                        <td><a href="#" class="form-control btn btn-danger">DELETE EVENT</a></td>
-                                                                    </tr>
-                                                                    <tr class="hiddenCol accordian-body collapse" id="demo5">
-                                                                        <td colspan="7" >
-                                                                            <div class="row">
-                                                                                <div class="col-sm-4">
-                                                                                    <h5>EVENT</h5>
-                                                                                    <img src="dist/img/boxed-bg.png" width="350" height="200">
-                                                                                    <div class="form-group">
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">NAME</label>
-                                                                                            <input type="text" class="form-control" value="Name">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">STATUS</label>
-                                                                                            <select class="form-control">
-                                                                                                <option>ACTIVE</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">LOCATION</label>
-                                                                                            <input type="text" class="form-control" value="LOCATION NAME">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">COST</label>
-                                                                                            <input type="text" class="form-control" value="BEAR BELLY">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-sm-4">
-                                                                                    <div class="row">
-                                                                                        <h5>7 EVENT PHOTOS</h5>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>6 REPORTERS RECEIVED</b></h5>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">EVENT REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>4 Reports</a></span>
-                                                                                        </div>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">PHOTO REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>2 Reports</a></span>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>DESCRIPTION</b></h5>
-                                                                                        <div class="col-sm-12" style="padding: 30px 30px 30px 30px; background-color: #fff">
-                                                                                            JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI 
-                                                                                        </div>
-
-
-                                                                                    </div>
-
-                                                                                </div>
-                                                                                <div class="col-sm-4" style="padding-left: 50px;">
-                                                                                    <h5><b>EVENT HOST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   John
-                                                                                    </div>
-                                                                                    <h5><b>GUEST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   OBAMA
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   PUTIN
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   MODI
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   <a>See 10 more</a>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="col-sm-2" style="float: left">
-
-                                                                                    <a  href="#" class="form-control btn btn-danger">DELETE EVENT</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-primary">SAVE CHANGES</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-default">DISMISS CHANGES</a>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td data-toggle="collapse" data-target="#demo6" class="accordion-toggle">MUSIC DANCE</td>
-                                                                        <td><a href="#"><img src="dist/img/user2-160x160.jpg" class="img-circle" width="40" height="40" style="border: 1px solid black;"> ANNI</a></td>
-                                                                        <td><a href="#">ACTIVE</a></td>
-                                                                        <td> 20</td>
-                                                                        <td>Dec 23,2016</td>
-                                                                        <td>Dec 30,2016</td>
-                                                                        <td><a href="#" class="form-control btn btn-danger">DELETE EVENT</a></td>
-                                                                    </tr>
-                                                                    <tr class="hiddenCol accordian-body collapse" id="demo6">
-                                                                        <td colspan="7" >
-                                                                            <div class="row">
-                                                                                <div class="col-sm-4">
-                                                                                    <h5>EVENT</h5>
-                                                                                    <img src="dist/img/boxed-bg.png" width="350" height="200">
-                                                                                    <div class="form-group">
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">NAME</label>
-                                                                                            <input type="text" class="form-control" value="Name">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">STATUS</label>
-                                                                                            <select class="form-control">
-                                                                                                <option>ACTIVE</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">LOCATION</label>
-                                                                                            <input type="text" class="form-control" value="LOCATION NAME">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">COST</label>
-                                                                                            <input type="text" class="form-control" value="BEAR BELLY">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-sm-4">
-                                                                                    <div class="row">
-                                                                                        <h5>7 EVENT PHOTOS</h5>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>6 REPORTERS RECEIVED</b></h5>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">EVENT REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>4 Reports</a></span>
-                                                                                        </div>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">PHOTO REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>2 Reports</a></span>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>DESCRIPTION</b></h5>
-                                                                                        <div class="col-sm-12" style="padding: 30px 30px 30px 30px; background-color: #fff">
-                                                                                            JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI 
-                                                                                        </div>
-
-
-                                                                                    </div>
-
-                                                                                </div>
-                                                                                <div class="col-sm-4" style="padding-left: 50px;">
-                                                                                    <h5><b>EVENT HOST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   John
-                                                                                    </div>
-                                                                                    <h5><b>GUEST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   OBAMA
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   PUTIN
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   MODI
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   <a>See 10 more</a>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="col-sm-2" style="float: left">
-
-                                                                                    <a  href="#" class="form-control btn btn-danger">DELETE EVENT</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-primary">SAVE CHANGES</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-default">DISMISS CHANGES</a>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td data-toggle="collapse" data-target="#demo7" class="accordion-toggle">MUSIC DANCE</td>
-                                                                        <td><a href="#"><img src="dist/img/user2-160x160.jpg" class="img-circle" width="40" height="40" style="border: 1px solid black;"> ANNI</a></td>
-                                                                        <td><a href="#">ACTIVE</a></td>
-                                                                        <td> 20</td>
-                                                                        <td>Dec 23,2016</td>
-                                                                        <td>Dec 30,2016</td>
-                                                                        <td><a href="#" class="form-control btn btn-danger">DELETE EVENT</a></td>
-                                                                    </tr>
-                                                                    <tr class="hiddenCol accordian-body collapse" id="demo7">
-                                                                        <td colspan="7" >
-                                                                            <div class="row">
-                                                                                <div class="col-sm-4">
-                                                                                    <h5>EVENT</h5>
-                                                                                    <img src="dist/img/boxed-bg.png" width="350" height="200">
-                                                                                    <div class="form-group">
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">NAME</label>
-                                                                                            <input type="text" class="form-control" value="Name">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">STATUS</label>
-                                                                                            <select class="form-control">
-                                                                                                <option>ACTIVE</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">LOCATION</label>
-                                                                                            <input type="text" class="form-control" value="LOCATION NAME">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">COST</label>
-                                                                                            <input type="text" class="form-control" value="BEAR BELLY">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-sm-4">
-                                                                                    <div class="row">
-                                                                                        <h5>7 EVENT PHOTOS</h5>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>6 REPORTERS RECEIVED</b></h5>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">EVENT REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>4 Reports</a></span>
-                                                                                        </div>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">PHOTO REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>2 Reports</a></span>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>DESCRIPTION</b></h5>
-                                                                                        <div class="col-sm-12" style="padding: 30px 30px 30px 30px; background-color: #fff">
-                                                                                            JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI 
-                                                                                        </div>
-
-
-                                                                                    </div>
-
-                                                                                </div>
-                                                                                <div class="col-sm-4" style="padding-left: 50px;">
-                                                                                    <h5><b>EVENT HOST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   John
-                                                                                    </div>
-                                                                                    <h5><b>GUEST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   OBAMA
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   PUTIN
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   MODI
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   <a>See 10 more</a>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="col-sm-2" style="float: left">
-
-                                                                                    <a  href="#" class="form-control btn btn-danger">DELETE EVENT</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-primary">SAVE CHANGES</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-default">DISMISS CHANGES</a>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td data-toggle="collapse" data-target="#demo8" class="accordion-toggle">MUSIC DANCE</td>
-                                                                        <td><a href="#"><img src="dist/img/user2-160x160.jpg" class="img-circle" width="40" height="40" style="border: 1px solid black;"> ANNI</a></td>
-                                                                        <td><a href="#">ACTIVE</a></td>
-                                                                        <td> 20</td>
-                                                                        <td>Dec 23,2016</td>
-                                                                        <td>Dec 30,2016</td>
-                                                                        <td><a href="#" class="form-control btn btn-danger">DELETE EVENT</a></td>
-                                                                    </tr>
-                                                                    <tr class="hiddenCol accordian-body collapse" id="demo8">
-                                                                        <td colspan="7" >
-                                                                            <div class="row">
-                                                                                <div class="col-sm-4">
-                                                                                    <h5>EVENT</h5>
-                                                                                    <img src="dist/img/boxed-bg.png" width="350" height="200">
-                                                                                    <div class="form-group">
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">NAME</label>
-                                                                                            <input type="text" class="form-control" value="Name">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">STATUS</label>
-                                                                                            <select class="form-control">
-                                                                                                <option>ACTIVE</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">LOCATION</label>
-                                                                                            <input type="text" class="form-control" value="LOCATION NAME">
-                                                                                        </div>
-                                                                                        <div class="form-group" >
-                                                                                            <label for="date">COST</label>
-                                                                                            <input type="text" class="form-control" value="BEAR BELLY">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-sm-4">
-                                                                                    <div class="row">
-                                                                                        <h5>7 EVENT PHOTOS</h5>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                        <div class="col-sm-3" style="padding-top: 5px">
-                                                                                            <img src="dist/img/avatar.png" class="img img-responsive">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>6 REPORTERS RECEIVED</b></h5>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">EVENT REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>4 Reports</a></span>
-                                                                                        </div>
-                                                                                        <div class="col-sm-12">
-                                                                                            <span class="col-sm-6">PHOTO REPORTS</span>
-                                                                                            <span class="col-sm-6"><a>2 Reports</a></span>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <h5><b>DESCRIPTION</b></h5>
-                                                                                        <div class="col-sm-12" style="padding: 30px 30px 30px 30px; background-color: #fff">
-                                                                                            JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI 
-                                                                                        </div>
-
-
-                                                                                    </div>
-
-                                                                                </div>
-                                                                                <div class="col-sm-4" style="padding-left: 50px;">
-                                                                                    <h5><b>EVENT HOST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   John
-                                                                                    </div>
-                                                                                    <h5><b>GUEST</b></h5>
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   OBAMA
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   PUTIN
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   MODI
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
-                                                                                            <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   <a>See 10 more</a>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="col-sm-2" style="float: left">
-
-                                                                                    <a  href="#" class="form-control btn btn-danger">DELETE EVENT</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-primary">SAVE CHANGES</a>
-                                                                                </div>
-                                                                                <div class="col-sm-2" style="float: right">
-                                                                                    <a style="float: left" href="#" class="form-control btn btn-default">DISMISS CHANGES</a>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-
+                                                                    
+                                                                   
 
 
                                                                 </tbody>
