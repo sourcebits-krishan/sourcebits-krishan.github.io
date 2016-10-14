@@ -9,6 +9,7 @@
 
                                     $rootScope.userN ="";
                                      $rootScope.token ="";
+                                      $rootScope.adminID ="";
 
                                 $scope.Login = function(u,p) {
                         
@@ -41,9 +42,11 @@
                                                                              console.log("response ",res.responseData.adminProfile.firstName);
                                                                              $rootScope.userN = res.responseData.adminProfile.firstName;
                                                                              $rootScope.token = res.responseData.adminProfile.token;
+                                                                             $rootScope.adminID = res.responseData.adminProfile.adminId;
                                                                              // set "data" to "MVVM"
                                                                                 $window.localStorage.setItem('userdata', $rootScope.userN);
                                                                                 $window.localStorage.setItem('usertoken', $rootScope.token);
+                                                                                $window.localStorage.setItem('adminID', $rootScope.adminID);
 
                                                                                 // get "data"
                                                                                 $window.localStorage.getItem('userdata');
@@ -75,7 +78,7 @@
                                                                              console.log('Successfully Updated the Details', 'success')
                                                                         })
                                                                         .error(function(err){
-                                                                              alert(data.errordescription);
+                                                                              alert("Wrong User Name /Password");
                                                                           console.log("error",err);
                                                                         });
 

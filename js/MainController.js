@@ -9,8 +9,10 @@
                                                     //$scope.userName = $rootScope.userN;
                                                     $scope.name1 = $window.localStorage.getItem('userdata');
                                                     $scope.token1 = $window.localStorage.getItem('usertoken');
+                                                     $scope.adminId1 = $window.localStorage.getItem('adminID');
                                                     console.log("Name: " + $scope.name1  ) ;
                                                     console.log("Token: " + $scope.token1  ) ;
+                                                    console.log("adminId: " + $scope.adminId1  ) ;
                                                    // console.log("Token: " + $scope.token1); 
                                                                             
                                                                   $http({
@@ -168,7 +170,59 @@
 
                                                                     };
 
+                                                                     $scope.resolveReport = function (rItemId1,rType1,rId,rContentN,rContentV) {
+                                                                       
+                                                                      
+                                                                      console.log("reportedItemId1 ",rItemId1);
+                                                                      console.log("reportedType1 ",rType1);
+                                                                      console.log("AdminId ",$scope.adminId1);
+                                                                      console.log("ReportId ",rId);
+                                                                      console.log("ContentNAme ",rContentN);
+                                                                      console.log("ContentValue ",rContentV);
+                                                                      console.log("Report Reset ",$scope.rReset);
+                                                                      //console.log("reportedItemId1 ",rItemId2);
+                                                                      //console.log("reportId1 ",rId1);
+                                                                      
+                                                                                                  $http({
+                                                                         method: 'POST',
+                                                                        headers: { 'Content-type': 'application/json','charset':'utf-8','token':$scope.token1},
+                                                                        data: {   
+                                                                              "reportedItemId": rItemId1,
+                                                                              "reportType": rType1,
+                                                                              "adminUserId": $scope.adminId1,
+                                                                              "resetreportedItemsList": [{
+                                                                                "reportId": rId,
+                                                                                "reportedContentName": rContentN,
+                                                                                "reportedContentValue": rContentV,
+                                                                                "reset": $scope.rReset
+                                                                              }]
+                                                                        },
+                                                                        url: 'http://ec2-54-70-91-74.us-west-2.compute.amazonaws.com:8080/zouk//report/resolveReportedItemsAdmin'
+                                                                        }).success(function(res){
+                                                                            console.log("response ",res);
+                                                                            $scope.mobile = res.responseData.mobileNo;
+                                                                             $scope.profImg = res.responseData.profileImage;
+                                                                                if(res.status.statusCode=='4521')
+                                                                                {
+                                                                                         
+                                                                                         console.log("Reported items resolved successfully." ) ;
+                                                                                         //$window.location.reload();
+                                                                                        
 
+                                                                                }
+                                                                                else{
+                                                                                        
+                                                                                    console.log("Reported items Not resolved successfully" ) ;
+                                                                                }    
+                                                                             
+                                                                        })
+                                                                        .error(function(err){
+                                                                              alert(data.errordescription);
+                                                                          console.log("error",err);
+                                                                        });
+
+
+                                                                    };
 
                                                                     $scope.isSelected=function(user){
                                                                           return $scope.selected_user===user;
@@ -178,6 +232,10 @@
                                                                       }
                                                                       $scope.reload=function(){
                                                                          $window.location.reload();
+                                                                      }
+                                                                      $scope.rReset= false;
+                                                                      $scope.reportReset=function(){
+                                                                           $scope.rReset=true;
                                                                       }
                                                                       $scope.reports=function(ereport,greport){
                                                                          $scope.reportcount = 0;
@@ -280,6 +338,46 @@
                                                                               alert(data.errordescription);
                                                                           console.log("error",err);
                                                                         });
+
+                                                                       
+
+                                                                        $http({
+                                                                         method: 'POST',
+                                                                        headers: { 'Content-type': 'application/json','charset':'utf-8','token': $scope.token1},
+                                                                        data: {   
+                                                                          "reportItemName" :"",    
+                                                                           "reportDate": "",  
+                                                                            "reportType": "EVENT",  
+                                                                            "numberOfReports": "",  
+                                                                            "numberOfGuestsMin": "" 
+                                                                        },
+                                                                        url: 'http://ec2-54-70-91-74.us-west-2.compute.amazonaws.com:8080/zouk/report/searchReportedItemsAdmin'
+                                                                        }).success(function(res){
+                                                                            console.log("response ",res);
+                                                                                if(res.status.statusCode=='4524')
+                                                                                {
+                                                                                         $scope.reportlist = res.responseData.reportedItemList;
+                                                                                         console.log("Report Fetched sucessfully." ) ;
+                                                                                          console.log(res.responseData) ;
+                                                                                        
+
+                                                                                        
+
+                                                                                }
+                                                                                else{
+                                                                                        
+                                                                                    console.log("No Report list." ) ;
+                                                                                }    
+                                                                             
+                                                                        })
+                                                                        .error(function(err){
+                                                                              alert(data.errordescription);
+                                                                          console.log("error",err);
+                                                                        });
+
+
+
+
                                                                       var userID = "";  
                                                                       var eventID = "";
                                                                            $scope.deleteEvent = function (user,event1) {

@@ -308,7 +308,7 @@
                                                                                         <div class="col-sm-3">
                                                                                              <h5 style="text-align:left"><b>USER DETAILS</b></h5>
                                                                                                   <div class="form-inline" style="float:right; padding-bottom: 10px;">
-                                                                                                      <label for="date" style="float:left;padding:7px 5px 0 0 " >NAME</label>
+                                                                                                      <label for="date" style="float:left;padding:7px 5px 0 0 "  >NAME</label>
                                                                                                           <input type="text" class="form-control"  
                                                                                                                   
                                                                                                                   id="favorite"
@@ -516,8 +516,8 @@
                                                                         <td  ng-show="{{eventlist[$index].hostUserList[0].status}}=='1'"><a href="#">ACTIVE</a></td>
                                                                         <td  ng-show="{{eventlist[$index].hostUserList[0].status}}=='2'"><a href="#">DELETED</a></td>  
                                                                         <td ng-hide="isSelected(x)">{{eventlist[$index].guestsCheckedInCount}}</td>
-                                                                        <td ng-hide="isSelected(x)" >{{eventlist[$index].eventStartTime.substring(0,10) | date : "MMMM d, y" }}</td> 
-                                                                        <td ng-hide="isSelected(x)">{{eventlist[$index].eventEndTime.substring(0,10) | date : "MMMM d, y" }}</td>
+                                                                        <td ng-hide="isSelected(x)" >{{eventlist[$index].eventStartTime.substring(0,10) | date : 'MMM-dd-yyyy' }}</td>  
+                                                                        <td ng-hide="isSelected(x)">{{eventlist[$index].eventEndTime.substring(0,10) | date : 'MMM-dd-yyyy'}}</td>
                                                                         <td ng-hide="isSelected(x)"><a href="#" class="form-control btn btn-danger" ng-click="deleteEvent(eventlist[$index].hostUserList[0].userId,eventlist[$index].eventId)">DELETE EVENT</a></td>
                                                                     </tr>
                                                                     <tr  ng-repeat-end ng-if="isSelected(x)">
@@ -588,7 +588,7 @@
                                                                                     </div>
                                                                                     <h5><b>GUEST</b></h5>
                                                                                     <div class="row">
-                                                                                        <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
+                                                                                        <!-- <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
                                                                                             <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   OBAMA
                                                                                         </div>
                                                                                         <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
@@ -599,7 +599,7 @@
                                                                                         </div>
                                                                                         <div class="col-sm-12" style="padding: 10px 10px 10px 10px">
                                                                                             <img src="dist/img/avatar5.png" class="img img-circle" width="50" height="50">   <a>See 10 more</a>
-                                                                                        </div>
+                                                                                        </div> -->
 
                                                                                     </div>
                                                                                 </div>
@@ -704,7 +704,7 @@
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
-                                                <label for="date">NUMBER OF GUESTs</label>
+                                                <label for="date">NUMBER OF GUESTS</label>
                                                 <select class="form-control" id="date">
                                                     <option>1 to 20</option>
 
@@ -730,44 +730,54 @@
                                                             <table class="table table-striped" style="color: black">
 
                                                                 <tbody>
-                                                                    <tr>
+                                                                    <tr ng-repeat="x in reportlist">
                                                                         <td>
                                                                             <div class="row" style="padding-left: 20px;padding-right: 25px">
-                                                                                <div class="col-sm-6">
+                                                                                <div class="col-sm-6 contentR" ng-show="reportlist[$index].reportStatus=='01'">
+                                                                                    <h4>REPORTED CONTENTS</h4><a type="submit" class="form-control btn btn-danger" style="position: absolute;
+                                                                                        width: 100px;
+                                                                                        /* float: right; */
+                                                                                        margin-top: 30px;
+                                                                                        margin-left: 370px;
+                                                                                        padding-right: 15px;" ng-click="reportReset();">RESET</a> 
+                                                                                    <img src="{{reportlist[$index].reportedContentValue}}" style="width:500px;max-height:400px">  
+                                                                                </div>
+                                                                                <div class="col-sm-5 contentR" ng-show="reportlist[$index].reportStatus=='02'">
                                                                                     <h4>REPORTED CONTENTS</h4>
-                                                                                    <img src="dist/img/boxed-bg.jpg" style="width:500px">
+                                                                                    <div class="col-sm-12" style="padding-right: 60px;padding-left: 60px;padding: 30px 15px;margin-bottom: 20px;color: inherit;background-color: none;">
+                                                                                            {{reportlist[$index].reportContentValue}}
+                                                                                        </div>  
+                                                                                </div>
+                                                                                <div class="col-sm-1" style="background-color:none;height:50px; " ng-show="reportlist[$index].reportStatus=='02'">
+                                                                                    <input type="button" class="btn btn-success" 
+                                                                                    ng-click="resolveReport(reportlist[$index].reportedItemId,reportlist[$index].reportType,reportlist[$index].reportId
+                                                                                       ,reportlist[$index].reportedContentName,reportlist[$index].reportedContentValue)" 
+                                                                                    value="RESOLVED" style="float:right; margin:34% auto;border-radius:20px;background: none;border-color:green;color:green">
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <div class="row">
 
 
                                                                                         <div class="col-sm-4">
-                                                                                            <h4>REPORTED FOR</h4> 
-                                                                                            USER PHOTO
+                                                                                            <h4>REPORTED FOR</h4>  
+                                                                                            {{reportlist[$index].reportedContentName}}
                                                                                         </div>
                                                                                         <div class="col-sm-4">
-                                                                                            <h4>LATEST REPORT</h4>
-                                                                                            DEC 12,2016
+                                                                                            <h4>LATEST REPORT</h4> 
+                                                                                             {{reportlist[$index].reportCreatedOn.substring(0,10) | date : 'MMM-dd-yyyy' }}
                                                                                         </div>
                                                                                         <div class="col-sm-4">
                                                                                             <h4>NUMBER OF REPORTS</h4>
                                                                                             1
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="row">
+                                                                                    <div class="row" ng-show="reportlist[$index].reportStatus=='01'">
                                                                                         <h4>REPORTS COMMENTS</h4>
                                                                                         <div class="col-sm-12" style="padding-right: 60px;padding-left: 60px;padding: 30px 15px;margin-bottom: 20px;color: inherit;background-color: #eee;">
-                                                                                            JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI 
+                                                                                            {{reportlist[$index].reportComment}}
                                                                                         </div>
-                                                                                        <div class="col-sm-12" style="padding-right: 60px;padding-left: 60px;padding: 30px 15px;margin-bottom: 20px;color: inherit;background-color: #eee;">
-                                                                                            JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI 
-                                                                                        </div>
-                                                                                        <div class="col-sm-12" style="padding-right: 60px;padding-left: 60px;padding: 30px 15px;margin-bottom: 20px;color: inherit;background-color: #eee;">
-                                                                                            JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI JAI MATA DI 
-                                                                                        </div>
-
-                                                                                        <div class="col-sm-12" style="padding-right: 60px;padding-left: 60px;padding: 30px 15px;margin-bottom: 20px;color: inherit;background-color: #d9edf7">
-                                                                                            See more 21
+                                                                                       
+                                                                                          
                                                                                         </div>
 
                                                                                     </div>
@@ -776,9 +786,13 @@
 
                                                                             </div>
                                                                             <div class="row" style="padding-left: 7px;padding-right: 7px">
-                                                                                <div class="col-sm-12" style="background-color:#f5f5f5;height:100px; ">
-                                                                                    <input type="button" class="btn btn-success" value="MAKE AS RESOLVE" style="float:right; margin:3% auto;">
+                                                                                <div class="col-sm-12" style="background-color:#f5f5f5;height:100px; " ng-show="reportlist[$index].reportStatus=='01'">
+                                                                                    <input type="button" class="btn btn-success" 
+                                                                                    ng-click="resolveReport(reportlist[$index].reportedItemId,reportlist[$index].reportType,reportlist[$index].reportId
+                                                                                       ,reportlist[$index].reportedContentName,reportlist[$index].reportedContentValue)" 
+                                                                                    value="MAKE AS RESOLVE" style="float:right; margin:3% auto;">
                                                                                 </div>
+                                                                                
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -938,13 +952,19 @@
                                     <lable>NAME</lable>
                                     <input type="text" class="form-control">
                                 </div>
-                                <div class="form-group">
-                                    <lable for='date'>STATUS</lable>
-                                    <select class="form-control">
-                                        <option>ACTIVE</option>
-                                        <option>DE ACTIVE</option>
-                                    </select>
-                                </div>
+
+                                            <div class="form-group" >
+                                                <label for="date1">START DATE</label>
+                                                <input type="text" class="form-control" data-provide="datepicker">
+                                            </div>
+                                        
+                                        
+                                            <div class="form-group" >
+                                                <label for="date1">END DATE</label>
+                                                <input type="text" class="form-control" data-provide="datepicker">
+                                            </div>
+                                       
+                                
                                 <div class="form-group">
                                     <lable for='date'>LOCATION</lable>
                                     <input type="text" class="form-control">
@@ -989,7 +1009,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-default">CANCEL</button>
+                        <button type="button" class="btn-default" data-dismiss="modal">CANCEL</button>
                         <button type="button" class="btn-primary">CREATE EVENT</button>
                     </div>
                 </div>
